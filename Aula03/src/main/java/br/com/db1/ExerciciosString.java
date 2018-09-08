@@ -39,13 +39,13 @@ public class ExerciciosString {
 	
 	public String exercicioNomeCurtoComeco(String nomeCompleto) {
 		
-		return nomeCompleto.substring(0, 3);
+		return nomeCompleto.substring(0, 4);
 	}
 	
 	
 	public String exercicioNomeTerceiroCaractere(String nomeCompleto) {
 		
-		return nomeCompleto.substring(2);
+		return nomeCompleto.substring(3);
 	}
 	
 	
@@ -67,7 +67,9 @@ public class ExerciciosString {
 	}
 	
 	
-	public Integer exercicioFrutas(String frutas) {
+	public String[] exercicioFrutas() {
+		
+		String frutas = "banana, maçã, melancia";
 		
 		String[] frutasSeparadas = frutas.split(",");
 		
@@ -76,8 +78,7 @@ public class ExerciciosString {
 			System.out.println(frutasSeparadas[contador]);
 		}
 		
-		return frutasSeparadas.length;
-				
+		return frutasSeparadas;
 	}
 	
 	
