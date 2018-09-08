@@ -47,24 +47,28 @@ public class ExerciciosInteger {
 		
 		List<Integer> listaImpares = new ArrayList<Integer>();
 		
-		for(Integer x = numero; x<=100; x++)
+		for(Integer x = numero; x<=100; x++) {
 			if (x%2 != 0) {
 				listaImpares.add(x);
 			}
-		
-		
-		
-		for(Integer y = 0; y<= listaImpares.size(); y++) {
-			
-			System.out.println(listaImpares.get(y));		
-			
 		}
 		
+		System.out.println(listaImpares.size());
 		
+		if (listaImpares.isEmpty()) {
+			return listaImpares;
+		}	
+		
+		else {
+		for(Integer y = 0; y<= listaImpares.size(); y++) {			
+			System.out.println(listaImpares.get(y));		
+			}
+		}
+		
+		System.out.println(listaImpares.size());
 			
 		return listaImpares;
 		
-	}
-
-	
+		}
+		
 	}

@@ -27,7 +27,7 @@ public class ExerciciosDouble {
 	}
 	
 	
-	public Double exercicioAreaTriangulo (Double base, Double altura) {
+	public Double exercicioAreaTriangulo(Double base, Double altura) {
 
 	return (base*altura)/2;
 	}

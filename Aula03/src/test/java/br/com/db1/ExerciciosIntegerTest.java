@@ -66,7 +66,9 @@ public class ExerciciosIntegerTest {
 		ExerciciosInteger objetoExemplo = new ExerciciosInteger();
 		
 		assertTrue(objetoExemplo.exercicioMaior(2, 3) == 3);
+		assertTrue(objetoExemplo.exercicioMaior(3, 2) == 3);
 		assertFalse(objetoExemplo.exercicioMaior(2, 3) == 2);
+		assertFalse(objetoExemplo.exercicioMaior(3, 2) == 2);
 		
 	}
 
@@ -75,7 +77,8 @@ public class ExerciciosIntegerTest {
 		
 		ExerciciosInteger objetoExemplo = new ExerciciosInteger();
 		
-		assertEquals(25, objetoExemplo.exercicioListaImpares(50).size());
+		assertTrue(objetoExemplo.exercicioListaImpares(100).isEmpty());
+		assertTrue(objetoExemplo.exercicioListaImpares(50).size() == 0);
 
 		
 		
