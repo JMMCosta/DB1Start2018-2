@@ -470,9 +470,70 @@ VALUES
 * estado do emitente
 
 ordene por data de recibo, nome do cliente e nome do emitente */
-SELECT * FROM recibo INNER JOIN pessoa ON recibo.cliente_fk = pessoa.id 
-INNER JOIN cidade ON cidade.id IN (SELECT endereco.cidade_id FROM endereco WHERE endereco.pessoa_id = recibo.cliente_fk) 
-INNER JOIN uf ON uf.id IN (SELECT cidade.uf_id FROM cidade WHERE cidade.id IN (SELECT endereco.cidade_id FROM endereco WHERE endereco.pessoa_id = recibo.cliente_fk));
 
-/* continuar*/
+SELECT cliente.*, emitente.Emitente, emitente.Estado FROM (
+
+SELECT recibo.numero AS Numero, recibo.valor AS Valor, recibo.dataemissao AS 'Data' , pessoa.nome AS Cliente, uf.nome AS Estado FROM recibo INNER JOIN pessoa ON recibo.cliente_fk = pessoa.id 
+INNER JOIN cidade ON cidade.id IN (SELECT endereco.cidade_id FROM endereco WHERE endereco.pessoa_id = recibo.cliente_fk) 
+INNER JOIN uf ON uf.id IN (SELECT cidade.uf_id FROM cidade WHERE cidade.id IN (SELECT endereco.cidade_id FROM endereco WHERE endereco.pessoa_id = recibo.cliente_fk))
+) cliente
+
+INNER JOIN (
+SELECT recibo.numero AS Numero, pessoa.nome AS Emitente, uf.nome AS Estado FROM recibo INNER JOIN pessoa ON recibo.emitente_fk = pessoa.id 
+INNER JOIN cidade ON cidade.id IN (SELECT endereco.cidade_id FROM endereco WHERE endereco.pessoa_id = recibo.emitente_fk) 
+INNER JOIN uf ON uf.id IN (SELECT cidade.uf_id FROM cidade WHERE cidade.id IN (SELECT endereco.cidade_id FROM endereco WHERE endereco.pessoa_id = recibo.emitente_fk))
+) emitente
+
+ON cliente.Numero = emitente.Numero ORDER BY cliente.Data;
+
+
+SELECT cliente.*, emitente.Emitente, emitente.Estado FROM (
+
+SELECT recibo.numero AS Numero, recibo.valor AS Valor, recibo.dataemissao AS 'Data' , pessoa.nome AS Cliente, uf.nome AS Estado FROM recibo INNER JOIN pessoa ON recibo.cliente_fk = pessoa.id 
+INNER JOIN cidade ON cidade.id IN (SELECT endereco.cidade_id FROM endereco WHERE endereco.pessoa_id = recibo.cliente_fk) 
+INNER JOIN uf ON uf.id IN (SELECT cidade.uf_id FROM cidade WHERE cidade.id IN (SELECT endereco.cidade_id FROM endereco WHERE endereco.pessoa_id = recibo.cliente_fk))
+) cliente
+
+INNER JOIN (
+SELECT recibo.numero AS Numero, pessoa.nome AS Emitente, uf.nome AS Estado FROM recibo INNER JOIN pessoa ON recibo.emitente_fk = pessoa.id 
+INNER JOIN cidade ON cidade.id IN (SELECT endereco.cidade_id FROM endereco WHERE endereco.pessoa_id = recibo.emitente_fk) 
+INNER JOIN uf ON uf.id IN (SELECT cidade.uf_id FROM cidade WHERE cidade.id IN (SELECT endereco.cidade_id FROM endereco WHERE endereco.pessoa_id = recibo.emitente_fk))
+) emitente
+
+ON cliente.Numero = emitente.Numero ORDER BY cliente.Cliente;
+
+SELECT cliente.*, emitente.Emitente, emitente.Estado FROM (
+
+SELECT recibo.numero AS Numero, recibo.valor AS Valor, recibo.dataemissao AS 'Data' , pessoa.nome AS Cliente, uf.nome AS Estado FROM recibo INNER JOIN pessoa ON recibo.cliente_fk = pessoa.id 
+INNER JOIN cidade ON cidade.id IN (SELECT endereco.cidade_id FROM endereco WHERE endereco.pessoa_id = recibo.cliente_fk) 
+INNER JOIN uf ON uf.id IN (SELECT cidade.uf_id FROM cidade WHERE cidade.id IN (SELECT endereco.cidade_id FROM endereco WHERE endereco.pessoa_id = recibo.cliente_fk))
+) cliente
+
+INNER JOIN (
+SELECT recibo.numero AS Numero, pessoa.nome AS Emitente, uf.nome AS Estado FROM recibo INNER JOIN pessoa ON recibo.emitente_fk = pessoa.id 
+INNER JOIN cidade ON cidade.id IN (SELECT endereco.cidade_id FROM endereco WHERE endereco.pessoa_id = recibo.emitente_fk) 
+INNER JOIN uf ON uf.id IN (SELECT cidade.uf_id FROM cidade WHERE cidade.id IN (SELECT endereco.cidade_id FROM endereco WHERE endereco.pessoa_id = recibo.emitente_fk))
+) emitente
+
+ON cliente.Numero = emitente.Numero ORDER BY emitente.Emitente;
+
+
+/*18 - Faça uma consulta que mostre:
+* quantidade de recibos emitidos no PR
+* valor total de recibos emitidos no PR*/
+
+
+SELECT COUNT(recibos.Estado) FROM (
+SELECT uf.nome AS Estado FROM recibo INNER JOIN pessoa ON recibo.emitente_fk = pessoa.id 
+INNER JOIN cidade ON cidade.id IN (SELECT endereco.cidade_id FROM endereco WHERE endereco.pessoa_id = recibo.emitente_fk) 
+INNER JOIN uf ON uf.id IN (SELECT cidade.uf_id FROM cidade WHERE cidade.id IN (SELECT endereco.cidade_id FROM endereco WHERE endereco.pessoa_id = recibo.emitente_fk))
+)recibos
+WHERE recibos.Estado = 'PR';
+
+
+SELECT sum(recibos.Valor) FROM (
+SELECT recibo.valor AS Valor FROM recibo INNER JOIN pessoa ON recibo.emitente_fk = pessoa.id 
+INNER JOIN cidade ON cidade.id IN (SELECT endereco.cidade_id FROM endereco WHERE endereco.pessoa_id = recibo.emitente_fk) 
+INNER JOIN uf ON uf.id IN (SELECT cidade.uf_id FROM cidade WHERE cidade.id IN (SELECT endereco.cidade_id FROM endereco WHERE endereco.pessoa_id = recibo.emitente_fk))
+)recibos;
 
